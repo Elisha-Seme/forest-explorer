@@ -1,73 +1,42 @@
-# React + TypeScript + Vite
+# 🌲 Forest Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Forest Explorer** is an immersive, photorealistic 3D vocabulary gamification experience built with React and Three.js. Navigate a lush, living ecosystem to discover ancient words and unlock the secrets of the forest.
 
-Currently, two official plugins are available:
+## 🌟 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🎨 Photorealistic Visuals
+- **Grounded Foliage**: 10,000+ hyper-realistic grass blades with organic tapering and light-passing (translucency) effects.
+- **Mastery-Level Trees**: Procedurally generated ancient trees with noise-displaced trunks and volumetric foliage clusters.
+- **Cinematic Pipeline**: High-fidelity post-processing including Bloom, ACES Filmic Tone Mapping, and N8AO for deep, realistic shadows.
 
-## React Compiler
+### 🎵 Immersive Soundscape
+- **Avian Synthesis 2.0**: A procedural auditory ecosystem featuring three distinct bird species (Chirpers, Warblers, and Woodpeckers) that harmonize in real-time.
+- **Adaptive Ambient**: Dynamic bursts of birdsong that respond to your movement through the woods.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🎮 Advanced Mechanics
+- **Macro Camera & Free Rotation**: 360° orbit controls and increased scale for a dramatic, cinematic sense of exploration.
+- **X-Ray Visibility**: Intelligently fading trees that ensure the character is never obscured in dense foliage.
+- **Cinematic Loading**: A custom-styled loading experience that tracks asset readiness for a smooth, flicker-free entry.
 
-## Expanding the ESLint configuration
+### 💎 Educational Gameplay
+- **Vocabulary Quests**: Find hidden treasures to unlock words like *Lush*, *Canopy*, and *Symbiosis*.
+- **The Scrapbook**: A premium UI for tracking your discovered words across multiple forest levels.
+- **Voice Narration**: High-quality speech synthesis for every discovered word.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Experience it Live
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Live Production URL**: [Forest Explorer on Vercel](https://forest-explorer-mw2wynwe1-elishaseme99-gmailcoms-projects.vercel.app)
+- **GitHub Repository**: [Elisha-Seme/forest-explorer](https://github.com/Elisha-Seme/forest-explorer)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Technology Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Framework**: [React 19](https://react.dev/) / [Vite](https://vitejs.dev/)
+- **3D Engine**: [Three.js](https://threejs.org/)
+- **React Bindings**: [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) & [@react-three/drei](https://docs.pmnd.rs/drei)
+- **Post-Processing**: [@react-three/postprocessing](https://docs.pmnd.rs/postprocessing)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Audio**: Web Audio API (Procedural Synthesis)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Developed with 🌲 and 🤖 for explorers everywhere.
