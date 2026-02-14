@@ -6,9 +6,11 @@ import { Wildlife } from './Wildlife';
 import { useFrame } from '@react-three/fiber';
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
+import { useStore } from '../store/useStore';
 import { EffectComposer, Bloom, N8AO, Vignette, BrightnessContrast } from '@react-three/postprocessing';
 
 export const Experience = () => {
+    const quality = useStore((state) => state.quality);
     const sunRef = useRef(new THREE.Vector3());
     const skyRef = useRef<any>(null);
     const lightRef = useRef<THREE.DirectionalLight>(null);
@@ -50,16 +52,18 @@ export const Experience = () => {
     return (
         <>
             <EffectComposer>
-                <N8AO
-                    halfRes
-                    color="black"
-                    aoRadius={2}
-                    intensity={1.5}
-                />
+                {quality === 'high' ? (
+                    <N8AO
+                        halfRes
+                        color="black"
+                        aoRadius={2}
+                        intensity={1.5}
+                    />
+                ) : <></>}
                 <Bloom
-                    luminanceThreshold={1.0}
+                    luminanceThreshold={quality === 'high' ? 1.0 : 1.2}
                     mipmapBlur
-                    intensity={0.4}
+                    intensity={quality === 'high' ? 0.4 : 0.2}
                     radius={0.3}
                 />
                 <Vignette eskil={false} offset={0.1} darkness={1.1} />
@@ -80,7 +84,7 @@ export const Experience = () => {
                 position={[10, 20, 10]}
                 intensity={1.2}
                 castShadow
-                shadow-mapSize={[2048, 2048]}
+                shadow-mapSize={quality === 'high' ? [2048, 2048] : [1024, 1024]}
                 shadow-camera-far={150}
                 shadow-camera-left={-75}
                 shadow-camera-right={75}
@@ -105,15 +109,17 @@ export const Experience = () => {
             <Grass />
             <Wildlife />
 
-            <ContactShadows
-                position={[0, 0, 0]}
-                opacity={0.4}
-                blur={2.0}
-                scale={150}
-                far={10}
-                resolution={512}
-                color="#000000"
-            />
+            {quality === 'high' && (
+                <ContactShadows
+                    position={[0, 0, 0]}
+                    opacity={0.4}
+                    blur={2.0}
+                    scale={150}
+                    far={10}
+                    resolution={512}
+                    color="#000000"
+                />
+            )}
         </>
     );
 };

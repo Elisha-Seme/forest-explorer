@@ -7,6 +7,7 @@ export interface Word {
 }
 
 export type CameraMode = 'thirdPerson' | 'topDown' | 'birdsEye';
+export type Quality = 'high' | 'low';
 
 export interface GameState {
     score: number;
@@ -16,6 +17,7 @@ export interface GameState {
     level: number;
     joystick: { x: number; y: number };
     cameraMode: CameraMode;
+    quality: Quality;
     robotColor: string;
     isVoiceEnabled: boolean;
     treasurePositions: { word: string; position: [number, number, number] }[];
@@ -24,6 +26,7 @@ export interface GameState {
 
     // Actions
     startGame: () => void;
+    setQuality: (quality: Quality) => void;
     addScore: (points: number) => void;
     unlockWord: (word: Word) => void;
     closeOverlay: () => void;
@@ -49,6 +52,7 @@ export const useStore = create<GameState>()(
             level: 1,
             joystick: { x: 0, y: 0 },
             cameraMode: 'thirdPerson',
+            quality: (typeof window !== 'undefined' && (/Mobi|Android/i.test(navigator.userAgent) || window.innerWidth < 768)) ? 'low' : 'high',
             robotColor: ROBOT_COLORS[1],
             isVoiceEnabled: true,
             treasurePositions: [],
@@ -56,6 +60,7 @@ export const useStore = create<GameState>()(
             isStarted: false,
 
             startGame: () => set({ isStarted: true }),
+            setQuality: (quality: Quality) => set({ quality }),
             addScore: (points: number) => set((state) => ({ score: state.score + points })),
 
             unlockWord: (word: Word) => set((state) => {

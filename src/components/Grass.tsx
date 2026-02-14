@@ -3,17 +3,18 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useStore } from '../store/useStore';
 
-const GRASS_COUNT = 8000; // Increased density for realism
-const GRASS_SEGMENTS = 4; // More segments for smoother bending
-
 export const Grass = () => {
     const meshRef = useRef<THREE.InstancedMesh>(null);
     const playerPosition = useStore((state) => state.playerPosition);
+    const quality = useStore((state) => state.quality);
+
+    const grassCount = useMemo(() => (quality === 'high' ? 8000 : 1500), [quality]);
+    const grassSegments = useMemo(() => (quality === 'high' ? 4 : 2), [quality]);
 
     // Create random positions for grass with more organic variance
     const positions = useMemo(() => {
         const data = [];
-        for (let i = 0; i < GRASS_COUNT; i++) {
+        for (let i = 0; i < grassCount; i++) {
             const x = (Math.random() - 0.5) * 160;
             const z = (Math.random() - 0.5) * 160;
             // More organic scale variance
@@ -110,7 +111,7 @@ export const Grass = () => {
 
     const geometry = useMemo(() => {
         // Create a more blade-like geometry (tapered)
-        const geo = new THREE.PlaneGeometry(0.12, 0.6, 1, GRASS_SEGMENTS);
+        const geo = new THREE.PlaneGeometry(0.12, 0.6, 1, grassSegments);
         const pos = geo.attributes.position;
         // Taper the top
         for (let i = 0; i < pos.count; i++) {
@@ -125,9 +126,9 @@ export const Grass = () => {
         return geo;
 
         function pow(a: number, b: number) { return Math.pow(a, b); }
-    }, []);
+    }, [grassSegments]);
 
     return (
-        <instancedMesh ref={meshRef} args={[geometry, material, GRASS_COUNT]} frustumCulled={false} castShadow />
+        <instancedMesh ref={meshRef} args={[geometry, material, grassCount]} frustumCulled={false} castShadow />
     );
 };

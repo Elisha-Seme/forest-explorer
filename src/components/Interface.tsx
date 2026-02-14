@@ -1,6 +1,6 @@
 import { useStore, type CameraMode, ROBOT_COLORS } from '../store/useStore';
 import { useRef, useState, useEffect, useCallback, type TouchEvent, type MouseEvent } from 'react';
-import { Settings, Camera, Map, User, Volume2, VolumeX, Palette, X, Book } from 'lucide-react';
+import { Settings, Camera, Map, User, Volume2, VolumeX, Palette, X, Book, Zap, Sparkles } from 'lucide-react';
 import { Scrapbook } from './Scrapbook';
 
 export const Interface = () => {
@@ -10,7 +10,7 @@ export const Interface = () => {
     const setJoystick = useStore((state) => state.setJoystick);
     const treasurePositions = useStore((state) => state.treasurePositions);
     const playerPosition = useStore((state) => state.playerPosition);
-    const { cameraMode, setCameraMode, robotColor, setRobotColor, isVoiceEnabled, setVoiceEnabled } = useStore();
+    const { cameraMode, setCameraMode, robotColor, setRobotColor, isVoiceEnabled, setVoiceEnabled, quality, setQuality } = useStore();
 
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isScrapbookOpen, setIsScrapbookOpen] = useState(false);
@@ -203,6 +203,26 @@ export const Interface = () => {
                                         onClick={() => setRobotColor(color)}
                                     />
                                 ))}
+                            </div>
+                        </section>
+
+                        <section className="settings-section">
+                            <h3><Zap size={14} /> Graphics Quality</h3>
+                            <div className="quality-options">
+                                <button
+                                    className={`quality-btn ${quality === 'low' ? 'active' : ''}`}
+                                    onClick={() => setQuality('low')}
+                                >
+                                    <Zap size={18} />
+                                    <span>Fast</span>
+                                </button>
+                                <button
+                                    className={`quality-btn ${quality === 'high' ? 'active' : ''}`}
+                                    onClick={() => setQuality('high')}
+                                >
+                                    <Sparkles size={18} />
+                                    <span>Beautiful</span>
+                                </button>
                             </div>
                         </section>
 

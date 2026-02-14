@@ -31,6 +31,7 @@ class SceneErrorBoundary extends Component<{ children: ReactNode }, { hasError: 
 
 function App() {
   const isStarted = useStore((state) => state.isStarted);
+  const quality = useStore((state) => state.quality);
 
   return (
     <SceneErrorBoundary>
@@ -39,7 +40,7 @@ function App() {
 
         <Canvas
           shadows
-          dpr={[1, 2]} // Balanced for performance and quality
+          dpr={quality === 'high' ? [1, 2] : [1, 1]}
           gl={{
             antialias: false,
             toneMapping: THREE.ACESFilmicToneMapping

@@ -27,9 +27,13 @@ export const Forest = () => {
     const unlockWord = useStore((state) => state.unlockWord);
     const foundWords = useStore((state) => state.foundWords);
     const setTreasurePositions = useStore((state) => state.setTreasurePositions);
+    const quality = useStore((state) => state.quality);
 
     const currentWords = useMemo(() => VOCABULARY[level] || VOCABULARY[1], [level]);
-    const count = 120 + level * 20;
+    const count = useMemo(() => {
+        const base = quality === 'high' ? (120 + level * 20) : (50 + level * 10);
+        return base;
+    }, [level, quality]);
 
     const instances = useMemo(() => {
         const data = [];
@@ -73,6 +77,7 @@ export const Forest = () => {
                 <MasteryTree
                     key={i}
                     {...instance}
+                    quality={quality}
                 />
             ))}
 
@@ -89,7 +94,7 @@ export const Forest = () => {
     );
 };
 
-const MasteryTree = ({ position, scale, rotation, variant, seed }: any) => {
+const MasteryTree = ({ position, scale, rotation, variant, seed, quality }: any) => {
     const trunkTexture = useTexture('https://cdn.jsdelivr.net/gh/mrdoob/three.js@r160/examples/textures/terrain/grasslight-big.jpg');
     const trunkRef = useRef<THREE.Mesh>(null!);
     const foliageRef = useRef<THREE.Group>(null!);
@@ -159,7 +164,9 @@ const MasteryTree = ({ position, scale, rotation, variant, seed }: any) => {
             <group ref={foliageRef} position={[0, 2.5, 0]}>
                 <FoliageCluster color={variant === 0 ? "#14532d" : "#064e3b"} offset={seed} />
                 <FoliageCluster color={variant === 0 ? "#166534" : "#065f46"} scale={0.8} position={[0, 1.5, 0]} offset={seed + 1} />
-                <FoliageCluster color={variant === 0 ? "#064e3b" : "#14532d"} scale={0.6} position={[0, 2.8, 0]} offset={seed + 2} />
+                {quality === 'high' && (
+                    <FoliageCluster color={variant === 0 ? "#064e3b" : "#14532d"} scale={0.6} position={[0, 2.8, 0]} offset={seed + 2} />
+                )}
             </group>
         </group>
     );
