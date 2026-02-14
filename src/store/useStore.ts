@@ -20,8 +20,10 @@ export interface GameState {
     isVoiceEnabled: boolean;
     treasurePositions: { word: string; position: [number, number, number] }[];
     playerPosition: { x: number; z: number };
+    isStarted: boolean;
 
     // Actions
+    startGame: () => void;
     addScore: (points: number) => void;
     unlockWord: (word: Word) => void;
     closeOverlay: () => void;
@@ -51,7 +53,9 @@ export const useStore = create<GameState>()(
             isVoiceEnabled: true,
             treasurePositions: [],
             playerPosition: { x: 0, z: 0 },
+            isStarted: false,
 
+            startGame: () => set({ isStarted: true }),
             addScore: (points: number) => set((state) => ({ score: state.score + points })),
 
             unlockWord: (word: Word) => set((state) => {

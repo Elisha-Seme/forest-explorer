@@ -3,6 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { Experience } from './components/Experience';
 import { Interface } from './components/Interface';
 import { Overlay } from './components/Overlay';
+import { LoadingScreen } from './components/LoadingScreen';
+import { useStore } from './store/useStore';
 import * as THREE from 'three';
 
 // Simple Error Boundary for the 3D Scene
@@ -28,9 +30,13 @@ class SceneErrorBoundary extends Component<{ children: ReactNode }, { hasError: 
 }
 
 function App() {
+  const isStarted = useStore((state) => state.isStarted);
+
   return (
     <SceneErrorBoundary>
       <div className="game-container">
+        <LoadingScreen />
+
         <Canvas
           shadows
           dpr={[1, 2]} // Balanced for performance and quality
@@ -45,8 +51,12 @@ function App() {
           </Suspense>
         </Canvas>
 
-        <Interface />
-        <Overlay />
+        {isStarted && (
+          <>
+            <Interface />
+            <Overlay />
+          </>
+        )}
       </div>
 
       <style>{`
