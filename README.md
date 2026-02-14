@@ -1,4 +1,5 @@
 # 🌲 Forest Explorer
+**Version 1.0 - Production Ready**
 
 **Forest Explorer** is an immersive, photorealistic 3D vocabulary gamification experience built with React and Three.js. Navigate a lush, living ecosystem to discover ancient words and unlock the secrets of the forest.
 
